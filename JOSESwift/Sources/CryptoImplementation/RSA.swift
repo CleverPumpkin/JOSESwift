@@ -50,6 +50,10 @@ fileprivate extension AsymmetricKeyAlgorithm {
         switch self {
         case .RSA1_5:
             return .rsaEncryptionPKCS1
+		case .RSA_OAEP_256:
+			return .rsaEncryptionOAEPSHA256
+		case .RSA_OAEP:
+			return .rsaEncryptionOAEPSHA1
         default:
             return nil
         }
@@ -63,6 +67,12 @@ fileprivate extension AsymmetricKeyAlgorithm {
             // For detailed information about the allowed plain text length for RSAES-PKCS1-v1_5,
             // please refer to the RFC(https://tools.ietf.org/html/rfc3447#section-7.2).
             return plainText.count <= (SecKeyGetBlockSize(publicKey) - 11)
+		case .RSA_OAEP_256:
+			let hLenght = 32
+			return plainText.count <= (SecKeyGetBlockSize(publicKey) - 2*hLenght - 2)
+		case .RSA_OAEP:
+			let hLenght = 20
+			return plainText.count <= (SecKeyGetBlockSize(publicKey) - 2*hLenght - 2)
         default:
             return false
         }
@@ -70,8 +80,8 @@ fileprivate extension AsymmetricKeyAlgorithm {
 
     func isCipherTextLenghtSatisfied(_ cipherText: Data, for privateKey: SecKey) -> Bool {
         switch self {
-        case .RSA1_5:
-            return cipherText.count == SecKeyGetBlockSize(privateKey)
+		case .RSA_OAEP_256, .RSA_OAEP, .RSA1_5:
+			return cipherText.count == SecKeyGetBlockSize(privateKey)
         default:
             return false
         }
