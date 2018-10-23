@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name              = "JOSESwift"
-  s.version           = "1.3.1"
+  s.version           = "1.3.1.1"
   s.license           = "Apache License, Version 2.0"
   s.summary           = "JOSE framework for Swift"
   s.authors           = { "Daniel Egger" => "daniel.egger@airsidemobile.com", "Carol Capek" => "carol.capek@airsidemobile.com", "Christoph Gigi Fuchs" => "christoph.fuchs@airsidemobile.com" }
@@ -10,7 +10,7 @@ Pod::Spec.new do |s|
 
   s.swift_version     = "4.0"
   s.platform          = :ios, "10.0"
-  s.source            = { :git => "https://github.com/airsidemobile/JOSESwift.git", :tag => "#{s.version}" }
+  s.source            = { :git => "https://github.com/CleverPumpkin/JOSESwift", :tag => "#{s.version}" }
   s.source_files      = "JOSESwift/**/*.{h,swift}"
   s.preserve_paths    = "SJCommonCrypto/*"
 
